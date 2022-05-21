@@ -1,7 +1,7 @@
 Node.js HW 01
 [TЗ](https://github.com/goitacademy/nodejs-homework/blob/master/homework-01/README.ua.md)
 
-Скріни:
+Screenshots:
 
 ```shell
 # Отримуємо і виводимо весь список контактів у вигляді таблиці (console.table)
@@ -15,18 +15,18 @@ node index.js --action="list"
 node index.js --action="get" --id=5
 ```
 
-[list](https://ibb.co/TBgLynz)
+[get](https://ibb.co/TBgLynz)
 
 ```shell
 # Добавялем контакт
 node index.js --action="add" --name="Mango" --email="mango@gmail.com" --phone="322-22-22"
 ```
 
-[list](https://ibb.co/6sGJ73X)
+[add](https://ibb.co/6sGJ73X)
 
 ```shell
 # Видаляємо контакт
 node index.js --action="remove" --id=3
 ```
 
-[list](https://ibb.co/yBqC2jm)
+[remove](https://ibb.co/yBqC2jm)
