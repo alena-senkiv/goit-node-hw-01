@@ -9,7 +9,7 @@ async function listContacts() {
     const data = await fs.readFile(contactsPath);
     const contacts = JSON.parse(data);
     return contacts;
-  } catch (error) {
+  } catch {
     throw new Error('Contacts list error');
   }
 }
@@ -23,16 +23,23 @@ async function getContactById(contactId) {
     }
     return contact;
   } catch (error) {
-    console.log(error.message);
+    throw error;
   }
 }
 
 async function addContact(name, email, phone) {
-  const contacts = await listContacts();
-  const newContact = { id: v4(), name, email, phone };
-  const newContactsList = [...contacts, newContact];
-  await updateContacts(newContactsList);
-  return newContactsList;
+  try {
+    const contacts = await listContacts();
+    const newContact = { id: v4(), name, email, phone };
+    if (!newContact) {
+      return null;
+    }
+    const newContactsList = [...contacts, newContact];
+    await updateContacts(newContactsList);
+    return newContactsList;
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function removeContact(contactId) {
@@ -46,7 +53,7 @@ async function removeContact(contactId) {
     await updateContacts(contacts);
     return removeContact;
   } catch (error) {
-    console.log(error.message);
+    throw error;
   }
 }
 
@@ -58,7 +65,7 @@ async function updateContacts(contacts) {
     );
     return updateContacts;
   } catch (error) {
-    console.log(error.message);
+    throw error;
   }
 }
 
