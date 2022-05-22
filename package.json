@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/alena-senkiv/goit-node-hw-01.git"
   },
-  "author": "Alena Senkiv alena.senkiv@gmail.com",
+  "author": "Alena Senkiv <alena.senkiv@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/alena-senkiv/goit-node-hw-01/issues"

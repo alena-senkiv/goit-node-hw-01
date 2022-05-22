@@ -21,10 +21,10 @@ async function getContactById(contactId) {
 
 async function addContact(name, email, phone) {
   const contacts = await listContacts();
-  const newProduct = { id: v4(), name, email, phone };
-  contacts.push(newProduct);
-  await updateContacts(contacts);
-  return contacts;
+  const newContact = { id: v4(), name, email, phone };
+  const newContactsList = [...contacts, newContact];
+  await updateContacts(newContactsList);
+  return newContactsList;
 }
 
 async function removeContact(contactId) {
