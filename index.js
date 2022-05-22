@@ -9,26 +9,46 @@ const {
 const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
     case 'list':
-      const contacts = await listContacts();
-      console.log(contacts);
+      try {
+        const contacts = await listContacts();
+        console.log(contacts);
+      } catch (error) {
+        console.error(error.message);
+      }
       break;
 
     case 'get':
-      const contact = await getContactById(id);
-      if (!contact) {
-        throw new Error(`Contact with id=${id} not found`);
+      try {
+        const contact = await getContactById(id);
+        if (!contact) {
+          throw new Error(`Contact with id=${id} not found`);
+        }
+        console.log(contact);
+      } catch (error) {
+        console.error(error.message);
       }
-      console.log(contact);
+
       break;
 
     case 'add':
-      const newContact = await addContact(name, email, phone);
-      console.log(newContact);
+      try {
+        const newContact = await addContact(name, email, phone);
+        console.log(newContact);
+      } catch (error) {
+        console.error(error.message);
+      }
       break;
 
     case 'remove':
-      const removeProduct = await removeContact(id);
-      console.log(removeProduct);
+      try {
+        const removedContact = await removeContact(id);
+        if (!removedContact) {
+          throw new Error(`Contact with id=${id} not found`);
+        }
+        console.log(removedContact);
+      } catch (error) {
+        console.error(error.message);
+      }
       break;
 
     default:

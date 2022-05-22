@@ -5,18 +5,26 @@ const { v4 } = require('uuid');
 const contactsPath = path.join(__dirname, './db/contacts.json');
 
 async function listContacts() {
-  const data = await fs.readFile(contactsPath);
-  const contacts = JSON.parse(data);
-  return contacts;
+  try {
+    const data = await fs.readFile(contactsPath);
+    const contacts = JSON.parse(data);
+    return contacts;
+  } catch (error) {
+    throw new Error('Contacts list error');
+  }
 }
 
 async function getContactById(contactId) {
-  const contacts = await listContacts();
-  const contact = contacts.find(contact => contact.id === contactId);
-  if (!contact) {
-    return null;
+  try {
+    const contacts = await listContacts();
+    const contact = contacts.find(contact => contact.id === contactId);
+    if (!contact) {
+      return null;
+    }
+    return contact;
+  } catch (error) {
+    console.log(error.message);
   }
-  return contact;
 }
 
 async function addContact(name, email, phone) {
@@ -28,22 +36,30 @@ async function addContact(name, email, phone) {
 }
 
 async function removeContact(contactId) {
-  const contacts = await listContacts();
-  const idx = contacts.findIndex(contact => contact.id === contactId);
-  if (idx === -1) {
-    return null;
+  try {
+    const contacts = await listContacts();
+    const idx = contacts.findIndex(contact => contact.id === contactId);
+    if (idx === -1) {
+      return null;
+    }
+    const [removeContact] = contacts.splice(idx, 1);
+    await updateContacts(contacts);
+    return removeContact;
+  } catch (error) {
+    console.log(error.message);
   }
-  const [removeContact] = contacts.splice(idx, 1);
-  await updateContacts(contacts);
-  return removeContact;
 }
 
 async function updateContacts(contacts) {
-  const updateContacts = await fs.writeFile(
-    contactsPath,
-    JSON.stringify(contacts)
-  );
-  return updateContacts;
+  try {
+    const updateContacts = await fs.writeFile(
+      contactsPath,
+      JSON.stringify(contacts)
+    );
+    return updateContacts;
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 module.exports = {
